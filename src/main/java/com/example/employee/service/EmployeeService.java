@@ -29,19 +29,27 @@ public class EmployeeService {
 //        this.employeeMapper = employeeMapper;
 //    }
 
+    private Employee convertToEntity(EmployeeDTO employeeDTO)
+    {
+        return new Employee(employeeDTO.getId(), employeeDTO.getName(), employeeDTO.getAge(), employeeDTO.getPhone());
+    }
+
+    private EmployeeDTO convertToDTO(Employee employee)
+    {
+        return new EmployeeDTO(employee.getId(), employee.getName(), employee.getAge(), employee.getPhone());
+    }
+
     // Method to save Employee
     public EmployeeDTO saveEmployee(EmployeeDTO employeeDTO) {
-        Employee employee = employeeRepository.save(EmployeeMapper.INSTANCE.employeeDTOToEmployee(employeeDTO));
-        return EmployeeMapper.INSTANCE.employeeToEmployeeDTO(employee);
+        Employee saveEmployee = employeeRepository.save(convertToEntity(employeeDTO));
+        return convertToDTO(saveEmployee);
     }
 
     // Method to get all Employees
     public List<EmployeeDTO> getAllEmployees() {
         List<Employee> employees = employeeRepository.findAll();
         logger.info("Employees fetched from DB: {}", employees); // Log the raw employee entities
-        return employees.stream()
-                .map(EmployeeMapper.INSTANCE::employeeToEmployeeDTO)
-                .collect(Collectors.toList());
+        return employees.stream().map(this::convertToDTO).toList();
     }
 
 
