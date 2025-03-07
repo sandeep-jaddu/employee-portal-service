@@ -44,7 +44,7 @@ public class BooksController
         );
     }
 
-    @PutMapping("/ /{id}")
+    @PutMapping("/updateBookById/{id}")
     public ResponseEntity<BooksDTO> updateBookById(@PathVariable Integer id, @RequestBody BooksDTO booksDTO)
     {
         return booksService.updateBookById(id,booksDTO).map(ResponseEntity::ok)
