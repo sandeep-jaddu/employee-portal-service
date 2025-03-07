@@ -56,7 +56,7 @@ public class EmployeeService {
     // Method to get Employee by ID
     public Optional<EmployeeDTO> getEmployeeById(Long id) {
         return employeeRepository.findById(id)
-                .map(EmployeeMapper.INSTANCE::employeeToEmployeeDTO);
+                .map(this::convertToDTO);
     }
 
     // Method to update Employee
