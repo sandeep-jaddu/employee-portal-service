@@ -137,6 +137,11 @@ public class UserService {
 
     public List<UserDTO> getAllUsers()
     {
-        return repo.findAll().stream().map(UserMapper.INSTANCE::mapUserToUserDTO).toList();
+        return repo.findAll().stream().map(user -> new UserDTO(
+                user.getId(),
+                user.getUsername(),
+                user.getEmailId(),
+                user.getPassword()
+        )).toList();
     }
 }

@@ -22,8 +22,6 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @Autowired
-    private EmployeeMapper employeeMapper;
 
 //    // Constructor injection for EmployeeRepository and EmployeeMapper
 //    public EmployeeService(EmployeeRepository employeeRepository, EmployeeMapper employeeMapper) {
@@ -33,8 +31,8 @@ public class EmployeeService {
 
     // Method to save Employee
     public EmployeeDTO saveEmployee(EmployeeDTO employeeDTO) {
-        Employee employee = employeeRepository.save(employeeMapper.employeeDTOToEmployee(employeeDTO));
-        return employeeMapper.employeeToEmployeeDTO(employee);
+        Employee employee = employeeRepository.save(EmployeeMapper.INSTANCE.employeeDTOToEmployee(employeeDTO));
+        return EmployeeMapper.INSTANCE.employeeToEmployeeDTO(employee);
     }
 
     // Method to get all Employees
@@ -42,7 +40,7 @@ public class EmployeeService {
         List<Employee> employees = employeeRepository.findAll();
         logger.info("Employees fetched from DB: {}", employees); // Log the raw employee entities
         return employees.stream()
-                .map(employeeMapper::employeeToEmployeeDTO)
+                .map(EmployeeMapper.INSTANCE::employeeToEmployeeDTO)
                 .collect(Collectors.toList());
     }
 
@@ -50,7 +48,7 @@ public class EmployeeService {
     // Method to get Employee by ID
     public Optional<EmployeeDTO> getEmployeeById(Long id) {
         return employeeRepository.findById(id)
-                .map(employeeMapper::employeeToEmployeeDTO);
+                .map(EmployeeMapper.INSTANCE::employeeToEmployeeDTO);
     }
 
     // Method to update Employee
@@ -60,7 +58,7 @@ public class EmployeeService {
             existingEmployee.setAge(updatedEmployeeDTO.getAge());
             existingEmployee.setPhone(updatedEmployeeDTO.getPhone());
             Employee updatedEmployee = employeeRepository.save(existingEmployee);
-            return employeeMapper.employeeToEmployeeDTO(updatedEmployee);
+            return EmployeeMapper.INSTANCE.employeeToEmployeeDTO(updatedEmployee);
         });
     }
 

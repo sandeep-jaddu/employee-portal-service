@@ -44,7 +44,7 @@ public class SecurityConfig {
         http.cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/user/**", "/employee/**", "/address/**","/employee-address/**")
+                        .requestMatchers("/user/**", "/employee/**", "/address/**","/employee-address/**","/books/**")
                         .permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

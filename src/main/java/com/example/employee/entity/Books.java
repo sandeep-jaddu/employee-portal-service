@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class Books
 {
     @Id
@@ -19,7 +20,7 @@ public class Books
     private String name;
     private String author;
     private String description;
-    private int numberOfPages;
+    private Long numberOfPages;
     private double price;
     private int bookCreatedBy;
     private boolean isDeleted;

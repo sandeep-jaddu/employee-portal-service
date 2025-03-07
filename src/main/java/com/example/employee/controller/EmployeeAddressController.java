@@ -71,7 +71,7 @@ public class EmployeeAddressController {
     private List<EmployeeExportDTO> getFlattenedEmployeeDetails() {
         List<EmployeeExportDTO> exportList = new ArrayList<>();
 
-        employeeRepository.findAll().forEach(employee -> {
+        employeeRepository.findAll().forEach(employee ->  {
             List<Address> addresses = addressRepository.findByEmployeeId(employee.getId());
 
             if (addresses.isEmpty()) {
