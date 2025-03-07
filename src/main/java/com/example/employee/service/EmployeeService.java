@@ -66,7 +66,7 @@ public class EmployeeService {
             existingEmployee.setAge(updatedEmployeeDTO.getAge());
             existingEmployee.setPhone(updatedEmployeeDTO.getPhone());
             Employee updatedEmployee = employeeRepository.save(existingEmployee);
-            return EmployeeMapper.INSTANCE.employeeToEmployeeDTO(updatedEmployee);
+            return convertToDTO(updatedEmployee);
         });
     }
 
